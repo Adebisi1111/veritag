@@ -10,15 +10,19 @@ const MOCK = `
   window.ethereum = {
     isMetaMask: true,
     request: async ({ method, params }) => {
-      window.__calls.requestAccounts++;
-      if (method === 'eth_requestAccounts') return ['0x61fd0047595A30A067f1F21F3b28C4AE8A8e3Dc3'];
-      if (method === 'wallet_switchEthereumChain') {
-        window.__calls.switchChain++;
-        window.__calls.switchedTo = params?.[0]?.chainId;
-        return null;
-      }
-      if (method === 'eth_chainId') return chainId;
       window.__calls.ethRequest.push(method);
+      if (method === 'eth_requestAccounts') { window.__calls.requestAccounts++; return ['0x61fd0047595A30A067f1F21F3b28C4AE8A8e3Dc3']; }
+      if (method === 'wallet_switchEthereumChain') { window.__calls.switchChain++; window.__calls.switchedTo = params?.[0]?.chainId; return null; }
+      if (method === 'eth_chainId') return chainId;
+      // Return sane shapes so the SDK doesn't bail before sendTransaction.
+      if (method === 'eth_estimateGas') return '0x5208';
+      if (method === 'eth_gasPrice') return '0x3b9aca00';
+      if (method === 'eth_maxPriorityFeePerGas') return '0x3b9aca00';
+      if (method === 'eth_getTransactionCount') return '0x1';
+      if (method === 'eth_getBlockByNumber') return { number: '0x1', baseFeePerGas: '0x3b9aca00', gasLimit: '0x1c9c380' };
+      if (method === 'gen_estimateTransactionFees' || method === 'gen_estimateFee') return { distribution: {}, feeValue: '0x0' };
+      if (method === 'eth_sendTransaction') return '0x' + 'a'.repeat(64);
+      if (method === 'eth_getTransactionReceipt') return { status: '0x1' };
       return null;
     },
     on: () => {}, removeListener: () => {},

@@ -37,37 +37,24 @@ same artifact.
 
 ## Verified working
 
-Deployed and exercised against the live network. Three claims, both verdict
-outcomes, one rejected transaction:
+Deployed and exercised against the live network on Studio dev (chain 61997) —
+the same network Studio Next uses. Two claims recorded so far, both verdict
+outcomes present:
 
 | Claim | Question (about python.org/downloads) | Verdict |
 |---|---|---|
 | `claim-1` | Does this page mention Python downloads? | `supported` |
 | `claim-2` | Does this page describe Antarctic penguin migration patterns? | `not_supported` |
-| `claim-3` | *(same question, re-submitted)* | `not_supported` |
 
 Each record carries the evidence excerpt, the submitter
-(`0x61fd0047…e3dc3`), a real transaction timestamp and the consensus result.
-The committee distinguishes **true from false claims about the same page** —
-it is not rubber-stamping everything as supported.
+(`0x61fd0047…e3dc3`), a real transaction timestamp (`claim-1`: 1791327035,
+`claim-2`: 1791329754) and the consensus result. The committee distinguishes
+**true from false claims about the same page** — it is not rubber-stamping
+everything as supported.
 
-**A bad URL is rejected cleanly.** Submitting `https://example.invalid/…`
-produced `FINISHED_WITH_ERROR` on the leader and wrote nothing to the registry.
-An unreachable page cannot manufacture a verdict.
-
-**A split committee writes nothing.** An earlier claim — *"Does this page list
-Python 3.13 as a stable release?"* — was decided `UNDETERMINED`, no validator
-majority, and no record was created. A verdict only exists when validators agree.
-
-The live frontend at <https://adebisi1111.github.io/veritag/> was
-browser-verified against the deployed contract: it reads 3 claims, renders green
-`supported` and red `refuted` badges distinctly, and shows the evidence excerpt
-on every card.
-
-(The badge word `refuted` is the UI's label for the on-chain verdict
-`not_supported`. The contract stores only `supported` and `not_supported`;
-the frontend maps them for display and matches `not_supported` exactly first, so
-it can never misread one as the other.)
+The live frontend at <https://adebisi1111.github.io/veritag/> reads both
+records from the deployed contract and renders green `supported` and red
+`refuted` badges distinctly.
 
 ## Why this needs GenLayer
 
@@ -138,27 +125,19 @@ Three API details that are easy to get wrong, all confirmed on-chain:
   Python clock to the transaction timestamp, so every validator re-executing the
   call sees the same value and the recorded time is deterministic. Verified
   on-chain: the deployed code took this path and `claim-1` carries a real
-  timestamp (`2026-10-01 15:42:49Z`), not a zero fallback.
+  timestamp (`1791327035`), not a zero fallback.
 
-Consensus v0.6 charges fees on deploy and write. Hand-signed EVM transactions
-are rejected at admission with `NO_MAJORITY` and zero rounds, because they
-carry no fee distribution. Use the CLI so it can build the estimate:
+Studio dev is a fee-accounted network. Deploy and submit via the CLI with a
+fee profile (`fee-profile.json` at the repo root, copied from a working
+project). The profile is method-keyed — `submit_claim` needs its own entry
+under `methods`, otherwise `--fee-profile` raises
+`--fee-profile does not contain a fee profile for method "submit_claim"`.
 
 ```bash
 genlayer network set studio-dev
-genlayer deploy --contract contracts/veritag.py --fees '<preset>' --fee-value <wei>
-genlayer write <address> submit_claim --args <url> <question> --fees '<preset>' --fee-value <wei>
+genlayer deploy --contract contracts/veritag.py --fee-profile fee-profile.json
+genlayer write <address> submit_claim --args <url> <question> --fee-profile fee-profile.json
 ```
-
-Contract arguments always go through `--args`; passing them positionally fails
-with `too many arguments for 'call'`.
-
-```bash
-```
-
-`genlayer estimate-fees <address> <method> --args ...` prints a ready-to-use
-preset. Studio dev needs CLI **v0.40 RC** — earlier CLIs do not list the
-network at all.
 
 ## Frontend
 
