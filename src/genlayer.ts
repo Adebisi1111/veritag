@@ -6,11 +6,11 @@
 //   * deploys and writes need a signed rollup transaction, so the browser
 //     delegates writes to the GenLayer Studio UI at studio-next.genlayer.com
 //
-// Verified against the live network: VeriTag at 0x9973a029…584f on studio-dev (61997).
+// Verified against the live network: VeriTag at 0x33633d84…0f960E on studio-dev (61997).
 
 export const RPC_URL = 'https://studio-dev.genlayer.com/api'
 export const STUDIO_URL = 'https://studio-next.genlayer.com'
-export const CONTRACT_ADDRESS = '0x9973a029E5E0b6AdfA8aa5f56fA4F9bd1C60584f'
+export const CONTRACT_ADDRESS = '0x33633d84349552Bd8E46f1C1c08CA6e13E0f960E'
 export const ONE_GEN = 1000000000000000000n
 
 // ---------------------------------------------------------------------------

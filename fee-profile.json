@@ -1,0 +1,32 @@
+{
+  "network": "studio-next",
+  "chainId": 61997,
+  "version": 1,
+  "deploy": {
+    "leaderTimeunitsAllocation": "125",
+    "validatorTimeunitsAllocation": "250",
+    "executionBudgetPerRound": "25000000000000000",
+    "totalMessageFees": "0",
+    "rotationsPerRound": "1"
+  },
+  "write": {
+    "leaderTimeunitsAllocation": "100",
+    "validatorTimeunitsAllocation": "200",
+    "executionBudgetPerRound": "94630500000000",
+    "totalMessageFees": "0",
+    "rotations": [
+      "3"
+    ]
+  },
+  "methods": {
+    "submit_claim": {
+      "leaderTimeunitsAllocation": "100",
+      "validatorTimeunitsAllocation": "200",
+      "executionBudgetPerRound": "94630500000000",
+      "totalMessageFees": "0",
+      "rotations": [
+        "3"
+      ]
+    }
+  }
+}

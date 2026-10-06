@@ -15,7 +15,8 @@ consensus only commits when they agree. The verdict, the evidence excerpt, the
 submitter and a timestamp are recorded on-chain.
 
 - **Live app**: <https://adebisi1111.github.io/veritag/>
-- **Deployed contract**: `0x9973a029E5E0b6AdfA8aa5f56fA4F9bd1C60584f`
+- **Deployed contract**: `0x33633d84349552Bd8E46f1C1c08CA6e13E0f960E`
+- **Explorer**: <https://explorer-studio-dev.genlayer.com/address/0x33633d84349552Bd8E46f1C1c08CA6e13E0f960E>
 - **Network**: GenLayer Studio **dev** (chain `61997`), RPC `https://studio-dev.genlayer.com/api`
 - **Source**: [`contracts/veritag.py`](contracts/veritag.py)
 
@@ -24,7 +25,7 @@ can confirm that yourself against the chain:
 
 ```bash
 genlayer network set studio-dev
-genlayer code 0x9973a029E5E0b6AdfA8aa5f56fA4F9bd1C60584f > deployed.py
+genlayer code 0x33633d84349552Bd8E46f1C1c08CA6e13E0f960E > deployed.py
 diff deployed.py contracts/veritag.py
 ```
 
@@ -235,8 +236,8 @@ touching the browser UI:
 
 ```bash
 genlayer network set studio-dev
-genlayer call 0x9973a029E5E0b6AdfA8aa5f56fA4F9bd1C60584f list_claims
-genlayer call 0x9973a029E5E0b6AdfA8aa5f56fA4F9bd1C60584f get_verdict --args claim-1
+genlayer call 0x33633d84349552Bd8E46f1C1c08CA6e13E0f960E list_claims
+genlayer call 0x33633d84349552Bd8E46f1C1c08CA6e13E0f960E get_verdict --args claim-1
 ```
 
 So a missing wallet degrades the review, it does not block it: the recorded
