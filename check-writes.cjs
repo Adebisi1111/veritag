@@ -2,7 +2,7 @@
 // instead of navigating to Studio. Uses a mock EIP-1193 provider (this is a
 // headless VPS with no MetaMask), and asserts on what the app actually does.
 const { chromium } = require('/home/administrator/node_modules/playwright');
-const TARGET_URL = process.env.TARGET || 'http://127.0.0.1:8906/streaming-payments/';
+const TARGET_URL = process.env.TARGET || 'http://127.0.0.1:8906/veritag/';
 
 const MOCK = `
   window.__calls = { requestAccounts: 0, switchChain: 0, ethRequest: [] };
@@ -35,7 +35,7 @@ const MOCK = `
   // Compare against the origin actually under test, so this works against both
   // the local server and the live site (a hardcoded origin false-fired there).
   const ORIGIN = new global.URL(TARGET_URL).origin;
-  const ALLOWED = ORIGIN + '/streaming-payments/';
+  const ALLOWED = ORIGIN + '/veritag/';
   let navigatedAway = false;
   page.on('framenavigated', (f) => { if (f === page.mainFrame() && !f.url().startsWith(ALLOWED)) navigatedAway = true; });
 

@@ -14,7 +14,7 @@ independently — each does its own fetch and forms its own judgement — and
 consensus only commits when they agree. The verdict, the evidence excerpt, the
 submitter and a timestamp are recorded on-chain.
 
-- **Live app**: <https://adebisi1111.github.io/streaming-payments/>
+- **Live app**: <https://adebisi1111.github.io/veritag/>
 - **Deployed contract**: `0x9973a029E5E0b6AdfA8aa5f56fA4F9bd1C60584f`
 - **Network**: GenLayer Studio **dev** (chain `61997`), RPC `https://studio-dev.genlayer.com/api`
 - **Source**: [`contracts/veritag.py`](contracts/veritag.py)
@@ -58,7 +58,7 @@ An unreachable page cannot manufacture a verdict.
 Python 3.13 as a stable release?"* — was decided `UNDETERMINED`, no validator
 majority, and no record was created. A verdict only exists when validators agree.
 
-The live frontend at <https://adebisi1111.github.io/streaming-payments/> was
+The live frontend at <https://adebisi1111.github.io/veritag/> was
 browser-verified against the deployed contract: it reads 3 claims, renders green
 `supported` and red `refuted` badges distinctly, and shows the evidence excerpt
 on every card.
@@ -245,7 +245,7 @@ verdicts, the excerpts and the consensus history are all readable without one.
 ## Project structure
 
 ```
-streaming-payments/
+veritag/
 ├── contracts/veritag.py        # Intelligent Contract (Python) — the deployed one
 ├── contracts/stream_payments.py# unused earlier StreamPay draft, kept for history
 ├── src/genlayer.ts             # Studio RPC + GenVM codec (reads)
